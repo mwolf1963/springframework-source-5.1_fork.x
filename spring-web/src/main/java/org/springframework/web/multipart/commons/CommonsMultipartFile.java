@@ -16,6 +16,7 @@
 
 package org.springframework.web.multipart.commons;
 
+import io.github.pixee.security.Filenames;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
@@ -94,7 +95,7 @@ public class CommonsMultipartFile implements MultipartFile, Serializable {
 
 	@Override
 	public String getOriginalFilename() {
-		String filename = this.fileItem.getName();
+		String filename = Filenames.toSimpleFileName(this.fileItem.getName());
 		if (filename == null) {
 			// Should never happen.
 			return "";
