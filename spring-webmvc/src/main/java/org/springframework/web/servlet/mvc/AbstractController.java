@@ -16,6 +16,7 @@
 
 package org.springframework.web.servlet.mvc;
 
+import io.github.pixee.security.Newlines;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -155,7 +156,7 @@ public abstract class AbstractController extends WebContentGenerator implements 
 			throws Exception {
 
 		if (HttpMethod.OPTIONS.matches(request.getMethod())) {
-			response.setHeader("Allow", getAllowHeader());
+			response.setHeader("Allow", Newlines.stripAll(getAllowHeader()));
 			return null;
 		}
 
