@@ -16,6 +16,7 @@
 
 package org.springframework.web.multipart;
 
+import io.github.pixee.security.Filenames;
 import java.io.IOException;
 import java.io.InputStream;
 
@@ -64,7 +65,7 @@ class MultipartFileResource extends AbstractResource {
 
 	@Override
 	public String getFilename() {
-		return this.multipartFile.getOriginalFilename();
+		return Filenames.toSimpleFileName(this.multipartFile.getOriginalFilename());
 	}
 
 	/**
