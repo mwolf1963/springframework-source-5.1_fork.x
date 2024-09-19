@@ -16,6 +16,7 @@
 
 package org.springframework.web.servlet.resource;
 
+import io.github.pixee.security.Newlines;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
@@ -457,7 +458,7 @@ public class ResourceHttpRequestHandler extends WebContentGenerator
 		}
 
 		if (HttpMethod.OPTIONS.matches(request.getMethod())) {
-			response.setHeader("Allow", getAllowHeader());
+			response.setHeader("Allow", Newlines.stripAll(getAllowHeader()));
 			return;
 		}
 
@@ -499,7 +500,7 @@ public class ResourceHttpRequestHandler extends WebContentGenerator
 						HttpRange.toResourceRegions(httpRanges, resource), mediaType, outputMessage);
 			}
 			catch (IllegalArgumentException ex) {
-				response.setHeader("Content-Range", "bytes */" + resource.contentLength());
+				response.setHeader("Content-Range", Newlines.stripAll("bytes */" + resource.contentLength()));
 				response.sendError(HttpServletResponse.SC_REQUESTED_RANGE_NOT_SATISFIABLE);
 			}
 		}
@@ -700,7 +701,7 @@ public class ResourceHttpRequestHandler extends WebContentGenerator
 				boolean first = true;
 				for (String headerValue : headerValues) {
 					if (first) {
-						response.setHeader(headerName, headerValue);
+						response.setHeader(headerName, Newlines.stripAll(headerValue));
 					}
 					else {
 						response.addHeader(headerName, headerValue);
