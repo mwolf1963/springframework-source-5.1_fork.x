@@ -16,6 +16,7 @@
 
 package org.springframework.http.converter.xml;
 
+import static io.github.pixee.security.XMLInputFactorySecurity.hardenFactory;
 import java.lang.reflect.Type;
 import java.util.Collection;
 import java.util.List;
@@ -169,7 +170,7 @@ public class Jaxb2CollectionHttpMessageConverterTests {
 		Jaxb2CollectionHttpMessageConverter<?> c = new Jaxb2CollectionHttpMessageConverter<Collection<Object>>() {
 			@Override
 			protected XMLInputFactory createXmlInputFactory() {
-				XMLInputFactory inputFactory = XMLInputFactory.newInstance();
+				XMLInputFactory inputFactory = hardenFactory(XMLInputFactory.newInstance());
 				inputFactory.setProperty(XMLInputFactory.IS_REPLACING_ENTITY_REFERENCES, true);
 				return inputFactory;
 			}

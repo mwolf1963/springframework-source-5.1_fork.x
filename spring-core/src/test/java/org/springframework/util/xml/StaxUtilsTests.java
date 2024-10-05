@@ -16,6 +16,7 @@
 
 package org.springframework.util.xml;
 
+import static io.github.pixee.security.XMLInputFactorySecurity.hardenFactory;
 import java.io.StringReader;
 import java.io.StringWriter;
 
@@ -52,7 +53,7 @@ public class StaxUtilsTests {
 
 	@Test
 	public void isStaxSource() throws Exception {
-		XMLInputFactory inputFactory = XMLInputFactory.newInstance();
+		XMLInputFactory inputFactory = hardenFactory(XMLInputFactory.newInstance());
 		String expected = "<element/>";
 		XMLStreamReader streamReader = inputFactory.createXMLStreamReader(new StringReader(expected));
 		Source source = StaxUtils.createCustomStaxSource(streamReader);
@@ -62,7 +63,7 @@ public class StaxUtilsTests {
 
 	@Test
 	public void isStaxSourceJaxp14() throws Exception {
-		XMLInputFactory inputFactory = XMLInputFactory.newInstance();
+		XMLInputFactory inputFactory = hardenFactory(XMLInputFactory.newInstance());
 		String expected = "<element/>";
 		XMLStreamReader streamReader = inputFactory.createXMLStreamReader(new StringReader(expected));
 		StAXSource source = new StAXSource(streamReader);
