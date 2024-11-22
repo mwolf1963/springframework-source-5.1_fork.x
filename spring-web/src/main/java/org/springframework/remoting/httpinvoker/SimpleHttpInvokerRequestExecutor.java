@@ -16,6 +16,8 @@
 
 package org.springframework.remoting.httpinvoker;
 
+import io.github.pixee.security.HostValidator;
+import io.github.pixee.security.Urls;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -103,7 +105,7 @@ public class SimpleHttpInvokerRequestExecutor extends AbstractHttpInvokerRequest
 	 * @see java.net.URL#openConnection()
 	 */
 	protected HttpURLConnection openConnection(HttpInvokerClientConfiguration config) throws IOException {
-		URLConnection con = new URL(config.getServiceUrl()).openConnection();
+		URLConnection con = Urls.create(config.getServiceUrl(), Urls.HTTP_PROTOCOLS, HostValidator.DENY_COMMON_INFRASTRUCTURE_TARGETS).openConnection();
 		if (!(con instanceof HttpURLConnection)) {
 			throw new IOException(
 					"Service URL [" + config.getServiceUrl() + "] does not resolve to an HTTP connection");

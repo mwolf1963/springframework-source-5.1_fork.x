@@ -16,6 +16,8 @@
 
 package org.springframework.core.io;
 
+import io.github.pixee.security.HostValidator;
+import io.github.pixee.security.Urls;
 import java.io.File;
 import java.io.IOException;
 import java.io.OutputStream;
@@ -119,7 +121,7 @@ public class FileUrlResource extends UrlResource implements WritableResource {
 		if (relativePath.startsWith("/")) {
 			relativePath = relativePath.substring(1);
 		}
-		return new FileUrlResource(new URL(getURL(), relativePath));
+		return new FileUrlResource(Urls.create(getURL(), relativePath, Urls.HTTP_PROTOCOLS, HostValidator.DENY_COMMON_INFRASTRUCTURE_TARGETS));
 	}
 
 }

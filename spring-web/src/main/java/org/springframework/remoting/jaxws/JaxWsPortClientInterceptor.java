@@ -16,6 +16,8 @@
 
 package org.springframework.remoting.jaxws;
 
+import io.github.pixee.security.HostValidator;
+import io.github.pixee.security.Urls;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.net.MalformedURLException;
@@ -375,7 +377,7 @@ public class JaxWsPortClientInterceptor extends LocalJaxWsServiceFactory
 			String wsdl = ann.wsdlLocation();
 			if (StringUtils.hasText(wsdl)) {
 				try {
-					setWsdlDocumentUrl(new URL(wsdl));
+					setWsdlDocumentUrl(Urls.create(wsdl, Urls.HTTP_PROTOCOLS, HostValidator.DENY_COMMON_INFRASTRUCTURE_TARGETS));
 				}
 				catch (MalformedURLException ex) {
 					throw new IllegalStateException(

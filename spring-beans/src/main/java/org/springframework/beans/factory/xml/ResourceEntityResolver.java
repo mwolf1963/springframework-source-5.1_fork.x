@@ -16,6 +16,8 @@
 
 package org.springframework.beans.factory.xml;
 
+import io.github.pixee.security.HostValidator;
+import io.github.pixee.security.Urls;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
@@ -81,7 +83,7 @@ public class ResourceEntityResolver extends DelegatingEntityResolver {
 			String resourcePath = null;
 			try {
 				String decodedSystemId = URLDecoder.decode(systemId, "UTF-8");
-				String givenUrl = new URL(decodedSystemId).toString();
+				String givenUrl = Urls.create(decodedSystemId, Urls.HTTP_PROTOCOLS, HostValidator.DENY_COMMON_INFRASTRUCTURE_TARGETS).toString();
 				String systemRootUrl = new File("").toURI().toURL().toString();
 				// Try relative to resource base if currently in system root.
 				if (givenUrl.startsWith(systemRootUrl)) {
@@ -115,7 +117,7 @@ public class ResourceEntityResolver extends DelegatingEntityResolver {
 					url = "https:" + url.substring(5);
 				}
 				try {
-					source = new InputSource(new URL(url).openStream());
+					source = new InputSource(Urls.create(url, Urls.HTTP_PROTOCOLS, HostValidator.DENY_COMMON_INFRASTRUCTURE_TARGETS).openStream());
 					source.setPublicId(publicId);
 					source.setSystemId(systemId);
 				}
