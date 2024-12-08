@@ -18,6 +18,7 @@ package org.springframework.http.server.reactive;
 
 import java.net.URI;
 import java.nio.charset.StandardCharsets;
+import java.security.SecureRandom;
 import java.util.Random;
 
 import org.junit.Test;
@@ -39,7 +40,7 @@ public class WriteOnlyHandlerIntegrationTests extends AbstractHttpHandlerIntegra
 
 	private static final int REQUEST_SIZE = 4096 * 3;
 
-	private Random rnd = new Random();
+	private Random rnd = new SecureRandom();
 
 	private byte[] body;
 

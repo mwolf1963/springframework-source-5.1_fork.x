@@ -17,6 +17,7 @@
 package org.springframework.http.server.reactive;
 
 import java.net.URI;
+import java.security.SecureRandom;
 import java.util.Random;
 
 import org.junit.Test;
@@ -35,7 +36,7 @@ public class EchoHandlerIntegrationTests extends AbstractHttpHandlerIntegrationT
 
 	private static final int REQUEST_SIZE = 4096 * 3;
 
-	private final Random rnd = new Random();
+	private final Random rnd = new SecureRandom();
 
 
 	@Override

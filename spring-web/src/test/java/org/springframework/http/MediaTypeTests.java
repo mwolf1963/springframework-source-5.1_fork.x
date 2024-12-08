@@ -16,6 +16,7 @@
 
 package org.springframework.http;
 
+import java.security.SecureRandom;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -173,7 +174,7 @@ public class MediaTypeTests {
 		expected.add(audioWave);
 
 		List<MediaType> result = new ArrayList<>(expected);
-		Random rnd = new Random();
+		Random rnd = new SecureRandom();
 		// shuffle & sort 10 times
 		for (int i = 0; i < 10; i++) {
 			Collections.shuffle(result, rnd);
@@ -293,7 +294,7 @@ public class MediaTypeTests {
 		expected.add(all);
 
 		List<MediaType> result = new ArrayList<>(expected);
-		Random rnd = new Random();
+		Random rnd = new SecureRandom();
 		// shuffle & sort 10 times
 		for (int i = 0; i < 10; i++) {
 			Collections.shuffle(result, rnd);
@@ -397,7 +398,7 @@ public class MediaTypeTests {
 		expected.add(audio03);
 
 		List<MediaType> result = new ArrayList<>(expected);
-		Random rnd = new Random();
+		Random rnd = new SecureRandom();
 		// shuffle & sort 10 times
 		for (int i = 0; i < 10; i++) {
 			Collections.shuffle(result, rnd);

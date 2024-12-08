@@ -17,6 +17,7 @@
 package org.springframework.http.server.reactive;
 
 import java.net.URI;
+import java.security.SecureRandom;
 import java.util.Random;
 
 import org.junit.Test;
@@ -42,7 +43,7 @@ public class RandomHandlerIntegrationTests extends AbstractHttpHandlerIntegratio
 
 	public static final int RESPONSE_SIZE = 1024 * 4;
 
-	private final Random rnd = new Random();
+	private final Random rnd = new SecureRandom();
 
 	private final RandomHandler handler = new RandomHandler();
 

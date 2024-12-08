@@ -20,6 +20,7 @@ import java.io.IOException;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Method;
 import java.net.URI;
+import java.security.SecureRandom;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -69,7 +70,7 @@ import static org.glassfish.tyrus.spi.WebSocketEngine.UpgradeStatus.SUCCESS;
  */
 public abstract class AbstractTyrusRequestUpgradeStrategy extends AbstractStandardUpgradeStrategy {
 
-	private static final Random random = new Random();
+	private static final Random random = new SecureRandom();
 
 	private static final Constructor<?> constructor;
 

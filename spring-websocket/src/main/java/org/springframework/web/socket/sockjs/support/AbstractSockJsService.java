@@ -18,6 +18,7 @@ package org.springframework.web.socket.sockjs.support;
 
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
+import java.security.SecureRandom;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
@@ -74,7 +75,7 @@ public abstract class AbstractSockJsService implements SockJsService, CorsConfig
 	private static final long ONE_YEAR = TimeUnit.DAYS.toSeconds(365);
 
 
-	private static final Random random = new Random();
+	private static final Random random = new SecureRandom();
 
 	protected final Log logger = LogFactory.getLog(getClass());
 

@@ -17,6 +17,7 @@
 package org.springframework.util;
 
 import java.nio.charset.StandardCharsets;
+import java.security.SecureRandom;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -324,7 +325,7 @@ public class MimeTypeTests {
 		expected.add(audioWave);
 
 		List<MimeType> result = new ArrayList<>(expected);
-		Random rnd = new Random();
+		Random rnd = new SecureRandom();
 		// shuffle & sort 10 times
 		for (int i = 0; i < 10; i++) {
 			Collections.shuffle(result, rnd);

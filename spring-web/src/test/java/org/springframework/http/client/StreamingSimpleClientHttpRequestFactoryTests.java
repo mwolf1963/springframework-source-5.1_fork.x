@@ -18,6 +18,7 @@ package org.springframework.http.client;
 
 import java.io.OutputStream;
 import java.net.URI;
+import java.security.SecureRandom;
 import java.util.Collections;
 import java.util.Random;
 
@@ -71,7 +72,7 @@ public class StreamingSimpleClientHttpRequestFactoryTests extends AbstractHttpRe
 	@Test
 	@Ignore
 	public void largeFileUpload() throws Exception {
-		Random rnd = new Random();
+		Random rnd = new SecureRandom();
 		ClientHttpResponse response = null;
 		try {
 			ClientHttpRequest request = factory.createRequest(new URI(baseUrl + "/methods/post"), HttpMethod.POST);

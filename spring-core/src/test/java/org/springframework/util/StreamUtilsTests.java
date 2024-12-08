@@ -21,6 +21,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.nio.charset.Charset;
+import java.security.SecureRandom;
 import java.util.Arrays;
 import java.util.Random;
 import java.util.UUID;
@@ -46,7 +47,7 @@ public class StreamUtilsTests {
 
 	@Before
 	public void setup() {
-		new Random().nextBytes(bytes);
+		new SecureRandom().nextBytes(bytes);
 		while (string.length() < StreamUtils.BUFFER_SIZE + 10) {
 			string += UUID.randomUUID().toString();
 		}
