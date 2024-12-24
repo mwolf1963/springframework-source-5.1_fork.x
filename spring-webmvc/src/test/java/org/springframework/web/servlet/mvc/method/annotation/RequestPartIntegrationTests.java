@@ -16,6 +16,7 @@
 
 package org.springframework.web.servlet.mvc.method.annotation;
 
+import io.github.pixee.security.Filenames;
 import java.net.URI;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
@@ -242,7 +243,7 @@ public class RequestPartIntegrationTests {
 
 			Assert.assertArrayEquals(new byte[]{(byte) 0xC4}, iso88591Data);
 
-			String url = "http://localhost:8080/test/" + testData.getName() + "/" + file.get().getOriginalFilename();
+			String url = "http://localhost:8080/test/" + testData.getName() + "/" + Filenames.toSimpleFileName(file.get().getOriginalFilename());
 			HttpHeaders headers = new HttpHeaders();
 			headers.setLocation(URI.create(url));
 			return new ResponseEntity<>(headers, HttpStatus.CREATED);
