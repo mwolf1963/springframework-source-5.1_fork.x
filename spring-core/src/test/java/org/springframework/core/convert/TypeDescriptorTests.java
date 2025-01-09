@@ -16,6 +16,7 @@
 
 package org.springframework.core.convert;
 
+import io.github.pixee.security.ObjectInputFilters;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.ObjectInputStream;
@@ -728,6 +729,7 @@ public class TypeDescriptorTests {
 		outputStream.writeObject(typeDescriptor);
 		ObjectInputStream inputStream = new ObjectInputStream(new ByteArrayInputStream(
 				out.toByteArray()));
+		ObjectInputFilters.enableObjectFilterIfUnprotected(inputStream);
 		TypeDescriptor readObject = (TypeDescriptor) inputStream.readObject();
 		assertThat(readObject, equalTo(typeDescriptor));
 	}
