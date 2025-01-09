@@ -16,6 +16,7 @@
 
 package org.springframework.core;
 
+import io.github.pixee.security.ObjectInputFilters;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.ObjectInputStream;
@@ -115,6 +116,7 @@ public class SerializableTypeWrapperTests {
 		oos.writeObject(source);
 		oos.close();
 		ObjectInputStream ois = new ObjectInputStream(new ByteArrayInputStream(bos.toByteArray()));
+		ObjectInputFilters.enableObjectFilterIfUnprotected(ois);
 		assertThat(ois.readObject(), equalTo(source));
 	}
 

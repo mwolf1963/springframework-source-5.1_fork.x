@@ -16,6 +16,7 @@
 
 package org.springframework.util;
 
+import io.github.pixee.security.ObjectInputFilters;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -64,6 +65,7 @@ public abstract class SerializationUtils {
 			return null;
 		}
 		try (ObjectInputStream ois = new ObjectInputStream(new ByteArrayInputStream(bytes))) {
+			ObjectInputFilters.enableObjectFilterIfUnprotected(ois);
 			return ois.readObject();
 		}
 		catch (IOException ex) {

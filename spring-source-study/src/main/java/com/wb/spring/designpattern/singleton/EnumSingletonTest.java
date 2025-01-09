@@ -1,5 +1,6 @@
 package com.wb.spring.designpattern.singleton;
 
+import io.github.pixee.security.ObjectInputFilters;
 import java.io.*;
 import java.lang.reflect.Constructor;
 
@@ -78,6 +79,7 @@ public class EnumSingletonTest {
 
 			FileInputStream fis = new FileInputStream("D:/enumSerialData.obj");
 			ObjectInputStream ois = new ObjectInputStream(fis);
+			ObjectInputFilters.enableObjectFilterIfUnprotected(ois);
 			s1 = (EnumSingleton) ois.readObject();
 
 			System.out.println(s1.getData());
