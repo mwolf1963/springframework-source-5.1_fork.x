@@ -16,6 +16,7 @@
 
 package org.springframework.web.servlet.mvc.support;
 
+import io.github.pixee.security.Newlines;
 import java.io.IOException;
 import java.util.List;
 
@@ -256,7 +257,7 @@ public class DefaultHandlerExceptionResolver extends AbstractHandlerExceptionRes
 
 		String[] supportedMethods = ex.getSupportedMethods();
 		if (supportedMethods != null) {
-			response.setHeader("Allow", StringUtils.arrayToDelimitedString(supportedMethods, ", "));
+			response.setHeader("Allow", Newlines.stripAll(StringUtils.arrayToDelimitedString(supportedMethods, ", ")));
 		}
 		response.sendError(HttpServletResponse.SC_METHOD_NOT_ALLOWED, ex.getMessage());
 		return new ModelAndView();
@@ -281,7 +282,7 @@ public class DefaultHandlerExceptionResolver extends AbstractHandlerExceptionRes
 		response.sendError(HttpServletResponse.SC_UNSUPPORTED_MEDIA_TYPE);
 		List<MediaType> mediaTypes = ex.getSupportedMediaTypes();
 		if (!CollectionUtils.isEmpty(mediaTypes)) {
-			response.setHeader("Accept", MediaType.toString(mediaTypes));
+			response.setHeader("Accept", Newlines.stripAll(MediaType.toString(mediaTypes)));
 		}
 		return new ModelAndView();
 	}
