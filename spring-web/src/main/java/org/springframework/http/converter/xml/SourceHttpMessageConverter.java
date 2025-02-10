@@ -16,6 +16,7 @@
 
 package org.springframework.http.converter.xml;
 
+import static io.github.pixee.security.XMLInputFactorySecurity.hardenFactory;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -217,7 +218,7 @@ public class SourceHttpMessageConverter<T extends Source> extends AbstractHttpMe
 
 	private Source readStAXSource(InputStream body, HttpInputMessage inputMessage) {
 		try {
-			XMLInputFactory inputFactory = XMLInputFactory.newInstance();
+			XMLInputFactory inputFactory = hardenFactory(XMLInputFactory.newInstance());
 			inputFactory.setProperty(XMLInputFactory.SUPPORT_DTD, isSupportDtd());
 			inputFactory.setProperty(XMLInputFactory.IS_SUPPORTING_EXTERNAL_ENTITIES, isProcessExternalEntities());
 			if (!isProcessExternalEntities()) {

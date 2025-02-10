@@ -16,6 +16,7 @@
 
 package org.springframework.util.xml;
 
+import static io.github.pixee.security.XMLInputFactorySecurity.hardenFactory;
 import java.io.StringReader;
 import java.io.StringWriter;
 import java.util.ArrayList;
@@ -40,7 +41,7 @@ import static org.xmlunit.matchers.CompareMatcher.*;
  */
 public class ListBasedXMLEventReaderTests {
 
-	private final XMLInputFactory inputFactory = XMLInputFactory.newInstance();
+	private final XMLInputFactory inputFactory = hardenFactory(XMLInputFactory.newInstance());
 
 	private final XMLOutputFactory outputFactory = XMLOutputFactory.newFactory();
 

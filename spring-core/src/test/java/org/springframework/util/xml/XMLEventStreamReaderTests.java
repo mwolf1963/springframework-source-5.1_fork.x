@@ -16,6 +16,7 @@
 
 package org.springframework.util.xml;
 
+import static io.github.pixee.security.XMLInputFactorySecurity.hardenFactory;
 import java.io.StringReader;
 import java.io.StringWriter;
 
@@ -44,7 +45,7 @@ public class XMLEventStreamReaderTests {
 
 	@Before
 	public void createStreamReader() throws Exception {
-		XMLInputFactory inputFactory = XMLInputFactory.newInstance();
+		XMLInputFactory inputFactory = hardenFactory(XMLInputFactory.newInstance());
 		XMLEventReader eventReader = inputFactory.createXMLEventReader(new StringReader(XML));
 		streamReader = new XMLEventStreamReader(eventReader);
 	}

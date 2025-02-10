@@ -16,6 +16,7 @@
 
 package org.springframework.util.xml;
 
+import static io.github.pixee.security.XMLInputFactorySecurity.hardenFactory;
 import java.io.InputStream;
 import java.io.StringReader;
 
@@ -44,7 +45,7 @@ public class StaxStreamXMLReaderTests extends AbstractStaxXMLReaderTestCase {
 
 	@Test
 	public void partial() throws Exception {
-		XMLInputFactory inputFactory = XMLInputFactory.newInstance();
+		XMLInputFactory inputFactory = hardenFactory(XMLInputFactory.newInstance());
 		XMLStreamReader streamReader = inputFactory.createXMLStreamReader(new StringReader(CONTENT));
 		streamReader.nextTag();  // skip to root
 		assertEquals("Invalid element", new QName("http://springframework.org/spring-ws", "root"),
