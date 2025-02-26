@@ -16,6 +16,7 @@
 
 package org.springframework.web.servlet.view;
 
+import static io.github.pixee.security.jakarta.PathValidator.validateDispatcherPath;
 import org.springframework.lang.Nullable;
 import org.springframework.util.Assert;
 import org.springframework.util.StringUtils;
@@ -230,7 +231,7 @@ public class InternalResourceView extends AbstractUrlBasedView {
 	 */
 	@Nullable
 	protected RequestDispatcher getRequestDispatcher(HttpServletRequest request, String path) {
-		return request.getRequestDispatcher(path);
+		return request.getRequestDispatcher(validateDispatcherPath(path));
 	}
 
 	/**

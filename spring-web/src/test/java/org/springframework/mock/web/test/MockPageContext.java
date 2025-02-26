@@ -16,6 +16,7 @@
 
 package org.springframework.mock.web.test;
 
+import static io.github.pixee.security.jakarta.PathValidator.validateDispatcherPath;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.util.Collections;
@@ -348,17 +349,17 @@ public class MockPageContext extends PageContext {
 
 	@Override
 	public void forward(String path) throws ServletException, IOException {
-		this.request.getRequestDispatcher(path).forward(this.request, this.response);
+		this.request.getRequestDispatcher(validateDispatcherPath(path)).forward(this.request, this.response);
 	}
 
 	@Override
 	public void include(String path) throws ServletException, IOException {
-		this.request.getRequestDispatcher(path).include(this.request, this.response);
+		this.request.getRequestDispatcher(validateDispatcherPath(path)).include(this.request, this.response);
 	}
 
 	@Override
 	public void include(String path, boolean flush) throws ServletException, IOException {
-		this.request.getRequestDispatcher(path).include(this.request, this.response);
+		this.request.getRequestDispatcher(validateDispatcherPath(path)).include(this.request, this.response);
 		if (flush) {
 			this.response.flushBuffer();
 		}
