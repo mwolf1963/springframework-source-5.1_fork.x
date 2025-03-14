@@ -16,6 +16,7 @@
 
 package org.springframework.util.xml;
 
+import io.github.pixee.security.BoundedLineReader;
 import java.io.BufferedReader;
 import java.io.CharConversionException;
 import java.io.IOException;
@@ -94,7 +95,7 @@ public class XmlValidationModeDetector {
 		try {
 			boolean isDtdValidated = false;
 			String content;
-			while ((content = reader.readLine()) != null) {
+			while ((content = BoundedLineReader.readLine(reader, 5_000_000)) != null) {
 				content = consumeCommentTokens(content);
 				if (this.inComment || !StringUtils.hasText(content)) {
 					continue;
