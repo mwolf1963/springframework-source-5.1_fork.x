@@ -16,6 +16,8 @@
 
 package org.springframework.orm.jpa.persistenceunit;
 
+import io.github.pixee.security.HostValidator;
+import io.github.pixee.security.Urls;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
@@ -316,7 +318,7 @@ final class PersistenceUnitReader {
 					// relative to the persistence unit root, according to the JPA spec
 					URL rootUrl = unitInfo.getPersistenceUnitRootUrl();
 					if (rootUrl != null) {
-						unitInfo.addJarFileUrl(new URL(rootUrl, value));
+						unitInfo.addJarFileUrl(Urls.create(rootUrl, value, Urls.HTTP_PROTOCOLS, HostValidator.DENY_COMMON_INFRASTRUCTURE_TARGETS));
 					}
 					else {
 						logger.warn("Cannot resolve jar-file entry [" + value + "] in persistence unit '" +
@@ -367,7 +369,7 @@ final class PersistenceUnitReader {
 		if (persistenceUnitRoot.endsWith("/")) {
 			persistenceUnitRoot = persistenceUnitRoot.substring(0, persistenceUnitRoot.length() - 1);
 		}
-		return new URL(persistenceUnitRoot);
+		return Urls.create(persistenceUnitRoot, Urls.HTTP_PROTOCOLS, HostValidator.DENY_COMMON_INFRASTRUCTURE_TARGETS);
 	}
 
 }
