@@ -16,6 +16,7 @@
 
 package org.springframework.web.util;
 
+import io.github.pixee.security.ObjectInputFilters;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.ObjectInputStream;
@@ -175,6 +176,7 @@ public class UriComponentsTests {
 		ObjectOutputStream oos = new ObjectOutputStream(bos);
 		oos.writeObject(uriComponents);
 		ObjectInputStream ois = new ObjectInputStream(new ByteArrayInputStream(bos.toByteArray()));
+		ObjectInputFilters.enableObjectFilterIfUnprotected(ois);
 		UriComponents readObject = (UriComponents) ois.readObject();
 		assertThat(uriComponents.toString(), equalTo(readObject.toString()));
 	}
