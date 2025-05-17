@@ -16,6 +16,7 @@
 
 package org.springframework.util.xml;
 
+import static io.github.pixee.security.XMLInputFactorySecurity.hardenFactory;
 import java.io.InputStream;
 import java.io.StringReader;
 
@@ -41,7 +42,7 @@ public class StaxEventXMLReaderTests extends AbstractStaxXMLReaderTestCase {
 
 	@Test
 	public void partial() throws Exception {
-		XMLInputFactory inputFactory = XMLInputFactory.newInstance();
+		XMLInputFactory inputFactory = hardenFactory(XMLInputFactory.newInstance());
 		XMLEventReader eventReader = inputFactory.createXMLEventReader(new StringReader(CONTENT));
 		eventReader.nextTag();  // skip to root
 		StaxEventXMLReader xmlReader = new StaxEventXMLReader(eventReader);
