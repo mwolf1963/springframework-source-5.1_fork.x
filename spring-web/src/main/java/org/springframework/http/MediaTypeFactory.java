@@ -16,6 +16,7 @@
 
 package org.springframework.http;
 
+import io.github.pixee.security.BoundedLineReader;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
@@ -68,7 +69,7 @@ public final class MediaTypeFactory {
 		try (BufferedReader reader = new BufferedReader(new InputStreamReader(is, StandardCharsets.US_ASCII))) {
 			MultiValueMap<String, MediaType> result = new LinkedMultiValueMap<>();
 			String line;
-			while ((line = reader.readLine()) != null) {
+			while ((line = BoundedLineReader.readLine(reader, 5_000_000)) != null) {
 				if (line.isEmpty() || line.charAt(0) == '#') {
 					continue;
 				}
