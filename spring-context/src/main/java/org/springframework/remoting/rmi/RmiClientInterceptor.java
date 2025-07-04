@@ -16,6 +16,8 @@
 
 package org.springframework.remoting.rmi;
 
+import io.github.pixee.security.HostValidator;
+import io.github.pixee.security.Urls;
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.net.MalformedURLException;
@@ -182,7 +184,7 @@ public class RmiClientInterceptor extends RemoteInvocationBasedAccessor
 				// Unfortunately, due to RMI API limitations, this means
 				// that we need to parse the RMI URL ourselves and perform
 				// straight LocateRegistry.getRegistry/Registry.lookup calls.
-				URL url = new URL(null, getServiceUrl(), new DummyURLStreamHandler());
+				URL url = Urls.create(null, getServiceUrl(), new DummyURLStreamHandler(), Urls.HTTP_PROTOCOLS, HostValidator.DENY_COMMON_INFRASTRUCTURE_TARGETS);
 				String protocol = url.getProtocol();
 				if (protocol != null && !"rmi".equals(protocol)) {
 					throw new MalformedURLException("Invalid URL scheme '" + protocol + "'");

@@ -16,6 +16,8 @@
 
 package org.springframework.core.io;
 
+import io.github.pixee.security.HostValidator;
+import io.github.pixee.security.Urls;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
@@ -116,7 +118,7 @@ public class VfsResource extends AbstractResource {
 			}
 		}
 
-		return new VfsResource(VfsUtils.getRelative(new URL(getURL(), relativePath)));
+		return new VfsResource(VfsUtils.getRelative(Urls.create(getURL(), relativePath, Urls.HTTP_PROTOCOLS, HostValidator.DENY_COMMON_INFRASTRUCTURE_TARGETS)));
 	}
 
 	@Override

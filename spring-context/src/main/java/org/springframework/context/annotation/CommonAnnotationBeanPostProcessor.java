@@ -16,6 +16,8 @@
 
 package org.springframework.context.annotation;
 
+import io.github.pixee.security.HostValidator;
+import io.github.pixee.security.Urls;
 import java.beans.Introspector;
 import java.beans.PropertyDescriptor;
 import java.io.Serializable;
@@ -721,7 +723,7 @@ public class CommonAnnotationBeanPostProcessor extends InitDestroyAnnotationBean
 									"] does not carry a WebServiceClient annotation");
 						}
 						service = (Service) BeanUtils.instantiateClass(ctor,
-								new URL(this.wsdlLocation), new QName(clientAnn.targetNamespace(), clientAnn.name()));
+								Urls.create(this.wsdlLocation, Urls.HTTP_PROTOCOLS, HostValidator.DENY_COMMON_INFRASTRUCTURE_TARGETS), new QName(clientAnn.targetNamespace(), clientAnn.name()));
 					}
 					catch (NoSuchMethodException ex) {
 						throw new IllegalStateException("JAX-WS Service class [" + this.lookupType.getName() +

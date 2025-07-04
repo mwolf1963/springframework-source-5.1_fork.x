@@ -16,6 +16,8 @@
 
 package org.springframework.util;
 
+import io.github.pixee.security.HostValidator;
+import io.github.pixee.security.Urls;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.net.MalformedURLException;
@@ -109,7 +111,7 @@ public abstract class ResourceUtils {
 			return true;
 		}
 		try {
-			new URL(resourceLocation);
+			Urls.create(resourceLocation, Urls.HTTP_PROTOCOLS, HostValidator.DENY_COMMON_INFRASTRUCTURE_TARGETS);
 			return true;
 		}
 		catch (MalformedURLException ex) {
@@ -141,7 +143,7 @@ public abstract class ResourceUtils {
 		}
 		try {
 			// try URL
-			return new URL(resourceLocation);
+			return Urls.create(resourceLocation, Urls.HTTP_PROTOCOLS, HostValidator.DENY_COMMON_INFRASTRUCTURE_TARGETS);
 		}
 		catch (MalformedURLException ex) {
 			// no URL -> treat as file path
@@ -181,7 +183,7 @@ public abstract class ResourceUtils {
 		}
 		try {
 			// try URL
-			return getFile(new URL(resourceLocation));
+			return getFile(Urls.create(resourceLocation, Urls.HTTP_PROTOCOLS, HostValidator.DENY_COMMON_INFRASTRUCTURE_TARGETS));
 		}
 		catch (MalformedURLException ex) {
 			// no URL -> treat as file path
@@ -311,7 +313,7 @@ public abstract class ResourceUtils {
 		if (separatorIndex != -1) {
 			String jarFile = urlFile.substring(0, separatorIndex);
 			try {
-				return new URL(jarFile);
+				return Urls.create(jarFile, Urls.HTTP_PROTOCOLS, HostValidator.DENY_COMMON_INFRASTRUCTURE_TARGETS);
 			}
 			catch (MalformedURLException ex) {
 				// Probably no protocol in original jar URL, like "jar:C:/mypath/myjar.jar".
@@ -319,7 +321,7 @@ public abstract class ResourceUtils {
 				if (!jarFile.startsWith("/")) {
 					jarFile = "/" + jarFile;
 				}
-				return new URL(FILE_URL_PREFIX + jarFile);
+				return Urls.create(FILE_URL_PREFIX + jarFile, Urls.HTTP_PROTOCOLS, HostValidator.DENY_COMMON_INFRASTRUCTURE_TARGETS);
 			}
 		}
 		else {
@@ -346,11 +348,11 @@ public abstract class ResourceUtils {
 			// Tomcat's "war:file:...mywar.war*/WEB-INF/lib/myjar.jar!/myentry.txt"
 			String warFile = urlFile.substring(0, endIndex);
 			if (URL_PROTOCOL_WAR.equals(jarUrl.getProtocol())) {
-				return new URL(warFile);
+				return Urls.create(warFile, Urls.HTTP_PROTOCOLS, HostValidator.DENY_COMMON_INFRASTRUCTURE_TARGETS);
 			}
 			int startIndex = warFile.indexOf(WAR_URL_PREFIX);
 			if (startIndex != -1) {
-				return new URL(warFile.substring(startIndex + WAR_URL_PREFIX.length()));
+				return Urls.create(warFile.substring(startIndex + WAR_URL_PREFIX.length()), Urls.HTTP_PROTOCOLS, HostValidator.DENY_COMMON_INFRASTRUCTURE_TARGETS);
 			}
 		}
 
