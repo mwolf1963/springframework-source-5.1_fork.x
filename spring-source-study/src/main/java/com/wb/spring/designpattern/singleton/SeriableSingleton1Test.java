@@ -1,5 +1,6 @@
 package com.wb.spring.designpattern.singleton;
 
+import io.github.pixee.security.ObjectInputFilters;
 import java.io.*;
 
 /**
@@ -27,6 +28,7 @@ public class SeriableSingleton1Test {
 
 			FileInputStream fis = new FileInputStream("D:/seriableData.obj");
 			ObjectInputStream ois = new ObjectInputStream(fis);
+			ObjectInputFilters.enableObjectFilterIfUnprotected(ois);
 			s1 = (SeriableSingleton1) ois.readObject();
 			ois.close();
 
