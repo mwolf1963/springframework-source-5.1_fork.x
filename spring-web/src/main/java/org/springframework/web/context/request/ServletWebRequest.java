@@ -16,6 +16,7 @@
 
 package org.springframework.web.context.request;
 
+import io.github.pixee.security.Newlines;
 import java.security.Principal;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -249,7 +250,7 @@ public class ServletWebRequest extends ServletRequestAttributes implements Nativ
 					response.setDateHeader(LAST_MODIFIED, lastModifiedTimestamp);
 				}
 				if (StringUtils.hasLength(etag) && response.getHeader(ETAG) == null) {
-					response.setHeader(ETAG, padEtagIfNecessary(etag));
+					response.setHeader(ETAG, Newlines.stripAll(padEtagIfNecessary(etag)));
 				}
 			}
 		}
